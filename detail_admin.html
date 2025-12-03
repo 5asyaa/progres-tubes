@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Detail Aduan - Admin</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body onload="adminDetailLoad();">
+
+<div class="navbar">
+  <div class="brand">🔔 Pengaduan Warga</div>
+  <div class="nav-right">
+    <a href="dashboard_admin.html">Dashboard Admin</a>
+    <span id="nav-user"></span>
+    <a href="#" onclick="logout()">Logout</a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="page">
+    <div class="page-title">Detail Aduan</div>
+    <div class="page-sub">Periksa detail dan ambil tindakan.</div>
+
+    <div class="detail-layout">
+      <div class="detail-left">
+        <h3 id="d-judul">...</h3>
+        <div style="color:#6b7280;margin:6px 0">Kategori: <span id="d-kategori"></span> • Lokasi: <span id="d-lokasi"></span></div>
+        <div style="color:#6b7280">Pengadu: <strong id="d-creator"></strong> • <small id="d-created"></small></div>
+
+        <h4 style="margin-top:14px">Deskripsi Aduan:</h4>
+        <p id="d-desc" style="color:#333"></p>
+
+        <h4 style="margin-top:12px">Foto Aduan:</h4>
+        <div id="d-foto"></div>
+      </div>
+
+      <div class="detail-right">
+        <h4>Aksi Admin</h4>
+        <div style="margin-bottom:8px">Status sekarang: <div id="current-status" style="display:inline-block;margin-left:6px"></div></div>
+
+        <div style="margin-top:10px" class="right-actions">
+          <button id="btn-accept" class="btn" style="background:#198754">✔ Terima & Proses</button>
+
+          <div style="margin-top:10px">
+            <label style="font-weight:600">Alasan Ditolak</label>
+            <textarea id="reject-reason" rows="4" style="width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef8"></textarea>
+          </div>
+
+          <button id="btn-reject" class="btn" style="background:#dc3545;margin-top:8px">✖ Tolak Aduan</button>
+
+          <button class="btn ghost" style="margin-top:10px" onclick="window.location.href='dashboard_admin.html'">Kembali ke Dashboard</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

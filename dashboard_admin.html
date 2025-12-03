@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard Admin</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body onload="adminLoadPage();">
+
+<div class="navbar">
+  <div class="brand">🔔 Pengaduan Warga</div>
+  <div class="nav-right">
+    <a href="dashboard_admin.html" style="opacity:.9">Dashboard Admin</a>
+    <span id="nav-user"></span>
+    <a href="#" onclick="logout()">Logout</a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="page">
+    <div class="page-title">Dashboard Admin</div>
+    <div class="page-sub">Kelola semua pengaduan warga.</div>
+
+    <div class="search-row" style="margin-top:16px">
+      <input id="admin-search" type="search" placeholder="Cari judul / lokasi / kategori...">
+      <button class="btn" onclick="adminSearch()">🔍 Cari</button>
+    </div>
+
+    <div class="card" style="margin-top:12px;">
+      <table class="table">
+        <thead>
+          <tr><th>#</th><th>Judul</th><th>Pelapor</th><th>Kategori</th><th>Lokasi</th><th>Status</th><th>Dibuat</th><th>Aksi</th></tr>
+        </thead>
+        <tbody id="reports-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

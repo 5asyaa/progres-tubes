@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar - Pengaduan Warga</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+    body {
+        background: #f2f3f7;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    .register-box {
+        width: 380px;
+        background: white;
+        padding: 32px 34px;
+        border-radius: 16px;
+        text-align: center;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        animation: fadeIn .3s ease;
+    }
+
+    h2 {
+        margin-bottom: 6px;
+        font-size: 22px;
+        font-weight: 700;
+        color: #0d47a1;
+    }
+
+    p.sub {
+        margin-top: -4px;
+        margin-bottom: 22px;
+        font-size: 14px;
+        color: #6b7280;
+    }
+
+    .reg-input {
+        width: 86%;
+        padding: 12px;
+        margin: 6px auto;
+        border: 1px solid #dce3eb;
+        border-radius: 10px;
+        background: #f5f7fb;
+        display: block;
+        font-size: 14px;
+        transition: .2s;
+    }
+
+    .reg-input:focus {
+        background: white;
+        border-color: #0d47a1;
+        box-shadow: 0 0 4px rgba(13,71,161,.25);
+        outline: none;
+    }
+
+    .reg-btn {
+        width: 86%;
+        padding: 12px;
+        background: #0d47a1;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        margin-top: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: .25s;
+    }
+
+    .reg-btn:hover {
+        background: #08306b;
+    }
+
+    .text-small {
+        font-size: 14px;
+        margin-top: 12px;
+        color: #555;
+    }
+
+    a {
+        text-decoration: none;
+        font-weight: 600;
+        color: #0d47a1;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(12px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+</head>
+<body>
+
+    <div class="register-box">
+        <h2>Daftar Akun</h2>
+        <p class="sub">Buat akun baru untuk melanjutkan</p>
+
+        <form onsubmit="registerUser(); return false">
+            <input type="text" id="regNama" class="reg-input" placeholder="Nama lengkap" required>
+            <input type="email" id="regEmail" class="reg-input" placeholder="Email" required>
+            <input type="password" id="regPass" class="reg-input" placeholder="Password" required>
+
+            <button type="submit" class="reg-btn">Daftar</button>
+        </form>
+
+        <div class="text-small">
+            Sudah punya akun? <a href="login.html">Login</a>
+        </div>
+    </div>
+
+<script src="app.js"></script>
+</body>
+</html>

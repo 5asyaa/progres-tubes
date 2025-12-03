@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard User</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style-dashboard-user.css">
+</head>
+<body onload="userLoadPage();">
+
+<div class="navbar">
+  <div class="nav-title">🔔 Pengaduan Warga</div>
+  <div class="nav-menu">
+    <a href="dashboard_user.html">Dashboard User</a>
+    <span id="nav-user"></span>
+    <a href="#" onclick="logout()">Logout</a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="title">Dashboard User</div>
+  <div class="subtitle">Ajukan laporan dan pantau statusnya.</div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Tambah Laporan</h3>
+
+      <label>Judul</label>
+      <input type="text" id="r-judul" class="input" placeholder="Judul laporan">
+
+      <label>Kategori</label>
+      <input type="text" id="r-kategori" class="input" placeholder="Kategori">
+
+      <label>Lokasi</label>
+      <input type="text" id="r-lokasi" class="input" placeholder="Lokasi">
+
+      <label>Deskripsi</label>
+      <textarea id="r-deskripsi" class="input" rows="4" placeholder="Deskripsi masalah"></textarea>
+
+      <label>Upload Foto (opsional)</label>
+      <input type="file" id="r-foto" class="file-input" accept="image/*">
+
+      <img id="previewFoto" style="display:none;margin-top:10px;max-width:100%;border-radius:8px;border:1px solid #e6eef8;">
+
+      <button class="btn" onclick="addReport()">Kirim Laporan</button>
+    </div>
+
+    <div class="card">
+      <h3>Daftar Laporan Saya</h3>
+      <div id="user-list" style="margin-top:10px"></div>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+
+<script>
+// small preview handler (optional)
+const previewEl = document.getElementById('previewFoto');
+const fileEl = document.getElementById('r-foto');
+if(fileEl){
+  fileEl.addEventListener('change', function(){
+    const f = this.files[0];
+    if(!f){ previewEl.style.display='none'; previewEl.src=''; return; }
+    previewEl.src = URL.createObjectURL(f);
+    previewEl.style.display = 'block';
+  });
+}
+</script>
+</body>
+</html>
