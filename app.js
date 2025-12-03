@@ -1,6 +1,3 @@
-/* app.js - frontend-only logic (localStorage used to persist across pages) */
-
-/* ---------- Constants / Helpers ---------- */
 const STORAGE_USERS = "pw_users_v1";
 const STORAGE_REPORTS = "pw_reports_v1";
 
@@ -13,7 +10,6 @@ function setCurrentUser(u){ sessionStorage.setItem("pw_current_user", JSON.strin
 function getCurrentUser(){ return JSON.parse(sessionStorage.getItem("pw_current_user")||'null'); }
 function clearCurrentUser(){ sessionStorage.removeItem("pw_current_user"); }
 
-/* ---------- Boot (seed admin) ---------- */
 (function initSeed(){
   let users = loadUsers();
   if(!users){
@@ -24,7 +20,6 @@ function clearCurrentUser(){ sessionStorage.removeItem("pw_current_user"); }
   }
 })();
 
-/* ---------- AUTH (register / login) ---------- */
 function registerUser(){ 
   const nama = document.getElementById('regNama').value.trim();
   const email = document.getElementById('regEmail').value.trim().toLowerCase();
@@ -46,18 +41,15 @@ function loginUser(){
   const found = users.find(u=>u.email===email && u.pass===pass);
   if(!found){ alert("Email / password salah"); return; }
   setCurrentUser(found);
-  // redirect based on role
   if(found.role==="admin") window.location.href = "dashboard_admin.html";
   else window.location.href = "dashboard_user.html";
 }
 
-/* ---------- LOGOUT ---------- */
 function logout(){
   clearCurrentUser();
   window.location.href = "login.html";
 }
 
-/* ---------- Admin dashboard (table & search) ---------- */
 function adminLoadPage(){
   const user = getCurrentUser();
   if(!user || user.role!=="admin"){ window.location.href="login.html"; return; }
@@ -73,7 +65,7 @@ function renderAdminTable(filter=''){
   const f = (filter||'').trim().toLowerCase();
   let rows = '';
   reports.forEach((r, idx)=>{
-    // fields: r.judul, r.kategori, r.lokasi, r.pelaporName, r.createdAt, r.status
+
     if(f && !(
           (r.judul||'').toLowerCase().includes(f) ||
           (r.lokasi||'').toLowerCase().includes(f) ||
@@ -103,7 +95,6 @@ function openAdminDetail(id){
   window.location.href = `detail_admin.html?id=${id}`;
 }
 
-/* ---------- Admin detail page (accept/reject) ---------- */
 function adminDetailLoad(){
   const user = getCurrentUser(); if(!user||user.role!=="admin"){ window.location.href="login.html"; return; }
   const navUser = document.getElementById('nav-user'); if(navUser) navUser.textContent = `${user.nama} (${user.role})`;
@@ -111,7 +102,7 @@ function adminDetailLoad(){
   const reports = loadReports();
   const r = reports.find(x=>x.id===id);
   if(!r){ alert('Laporan tidak ditemukan'); window.location.href='dashboard_admin.html'; return; }
-  // fill left section
+
   document.getElementById('d-judul').textContent = r.judul;
   document.getElementById('d-kategori').textContent = r.kategori||'';
   document.getElementById('d-lokasi').textContent = r.lokasi||'';
@@ -120,10 +111,10 @@ function adminDetailLoad(){
   document.getElementById('d-desc').textContent = r.deskripsi || '';
   if(r.foto) document.getElementById('d-foto').innerHTML = `<img src="${r.foto}" class="report-image">`;
   else document.getElementById('d-foto').innerHTML = '<em>(tidak ada foto)</em>';
-  // status
+ 
   const cs = document.getElementById('current-status');
   if(cs) cs.innerHTML = statusBadge(r.status);
-  // actions
+
   const bA = document.getElementById('btn-accept'); if(bA) bA.onclick = ()=>adminAccept(id);
   const bR = document.getElementById('btn-reject'); if(bR) bR.onclick = ()=>adminReject(id);
 }
@@ -151,14 +142,12 @@ function adminReject(id){
   adminDetailLoad();
 }
 
-/* ---------- User dashboard & laporan ---------- */
 function userLoadPage(){
   const user = getCurrentUser(); if(!user){ window.location.href='login.html'; return; }
   const navUser = document.getElementById('nav-user'); if(navUser) navUser.textContent = `${user.nama} (${user.role})`;
   renderUserList();
 }
 
-/* renderUserList used by dashboard_user.html when page loads */
 function renderUserList(){
   const user = getCurrentUser();
   const reports = loadReports().filter(r=> r.email === user.email );
@@ -178,7 +167,6 @@ function renderUserList(){
   box.innerHTML = html || '<div style="color:#6b7280;padding:12px">Belum ada laporan</div>';
 }
 
-/* ---------- FIXED addReport (handles file upload -> base64) ---------- */
 function addReport(){
   const judul = document.getElementById('r-judul').value.trim();
   const deskripsi = document.getElementById('r-deskripsi').value.trim();
@@ -224,18 +212,15 @@ function saveReportWithImage(id, judul, deskripsi, kategori, lokasi, base64Foto,
   saveReports(reports);
   alert("Laporan berhasil dikirim!");
 
-  // reset form fields if exist
   if(document.getElementById('r-judul')) document.getElementById('r-judul').value = '';
   if(document.getElementById('r-deskripsi')) document.getElementById('r-deskripsi').value = '';
   if(document.getElementById('r-kategori')) document.getElementById('r-kategori').value = '';
   if(document.getElementById('r-lokasi')) document.getElementById('r-lokasi').value = '';
   if(document.getElementById('r-foto')) document.getElementById('r-foto').value = '';
 
-  // Update UI
   renderUserList();
 }
 
-/* ---------- User detail page ---------- */
 function openUserDetail(id){
   window.location.href = `detail_user.html?id=${id}`;
 }
@@ -257,7 +242,6 @@ function userDetailLoad(){
   if(r.status==='Ditolak') document.getElementById('u-reject').textContent = r.rejectReason||'';
 }
 
-/* ---------- Utilities ---------- */
 function statusBadge(s){
   const key = (s||'').toLowerCase();
   if(key.includes('menunggu')) return `<span class="badge pending">Menunggu Verifikasi</span>`;
